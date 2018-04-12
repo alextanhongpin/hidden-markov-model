@@ -1,0 +1,38 @@
+digraph G {
+	rankdir = LR
+	concentrate = true
+  graph [pad=0.25, nodesep=0.5, ranksep=1];
+	node [shape = box]
+	label="Trellis Diagram"
+
+	start [label = Start]
+
+	s1 [label = Normal, shape = plaintext]
+	s2 [label = Cold, shape = plaintext]
+	s3 [label = Dizzy, shape = plaintext]
+
+	h1 [label = "H\n0.3", color = blue]
+	h2 [label = "H\n0.084", color = blue]
+	h3 [label = "H\n0.00588"]
+
+	f1 [label = "F\n0.04"]
+	f2 [label = "F\n0.027"]
+	f3 [label = "F\n0.01512", color = blue]
+
+	{ rank = same; s1; h1; f1; }
+	{ rank = same; s2; h2; f2; }
+	{ rank = same; s3; h3; f3; }
+	
+	start -> h1 [label = "P(Start | H) · P(H → N)", color = red]
+	start -> f1 [label = "P(Start | F) · P(F → N)"]
+
+	h1 -> h2 [label = "0.3 · P(H → H) · P(C | H)", color = red]
+	h1 -> f2 [label = "0.3 · P(H → F) · P(C | F)"]
+	f1 -> h2 [label = "0.04 · P(F → H) · P(C | H)"]
+	f1 -> f2 [label = "0.04 · P(F → F) · P(C | F)"]
+
+	h2 -> h3 [label = "0.084 · P(H → H) · P(D | H)"]
+	h2 -> f3 [label = "0.084 · P(H → F) · P(D | F)", color = red]
+	f2 -> h3 [label = "0.027 · P(F → H) · P(D | H)"]
+	f2 -> f3 [label = "0.027 · P(F → F) · P(D | F)"]
+}

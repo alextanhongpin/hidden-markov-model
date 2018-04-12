@@ -1,0 +1,31 @@
+digraph G {
+  label="Hidden Markov Model"
+
+  start [label = Start]
+  healthy [label = Healthy]
+  fever [label = Fever]
+  normal [label = Normal]
+  cold [label = Cold]
+  dizzy [label = Dizzy]
+
+
+  { rank = same; healthy; fever}
+  { rank = same; normal; dizzy; cold}
+
+  start -> healthy [label = 0.6]
+  start -> fever [label = 0.4]
+
+  healthy -> healthy [label = 0.7]
+  healthy -> fever [label = 0.3]
+
+  fever -> healthy [label = 0.4]
+  fever -> fever [label = 0.6]
+
+  healthy -> normal [label = 0.5, color = blue]
+  healthy -> cold [label = 0.4, color = blue]
+  healthy -> dizzy [label = 0.1, color = blue]
+
+  fever -> normal [label = 0.1, color = red]
+  fever -> cold [label = 0.3, color = red]
+  fever -> dizzy [label = 0.6, color = red]
+}
